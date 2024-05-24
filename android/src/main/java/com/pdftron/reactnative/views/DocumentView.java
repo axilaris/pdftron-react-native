@@ -108,6 +108,9 @@ import com.pdftron.reactnative.utils.DownloadFileCallback;
 import com.pdftron.reactnative.utils.ReactUtils;
 import com.pdftron.sdf.Obj;
 
+import android.content.SharedPreferences; // XXX
+import com.pdftron.pdf.config.ToolStyleConfig; // XXX
+
 import org.apache.commons.io.FileUtils;
 import org.json.JSONException;
 
@@ -215,6 +218,12 @@ public class DocumentView extends com.pdftron.pdf.controls.DocumentView2 {
 
     public DocumentView(Context context) {
         super(context);
+
+        // XXX
+        SharedPreferences settings = Tool.getToolPreferences(getContext());        
+        SharedPreferences.Editor editor = settings.edit();    
+        editor.putFloat(ToolStyleConfig.getInstance().getTextSizeKey(Annot.e_FreeText, ""), 10); 
+        editor.apply();          
     }
 
     public DocumentView(Context context, AttributeSet attrs) {
