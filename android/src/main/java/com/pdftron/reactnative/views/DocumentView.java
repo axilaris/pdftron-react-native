@@ -2752,7 +2752,7 @@ public class DocumentView extends com.pdftron.pdf.controls.DocumentView2 {
     };
 
 
-
+// XXX
     private ToolManager.BasicAnnotationListener mAnnotationBasicAnnotationListener = new ToolManager.BasicAnnotationListener() {
 
         @Override
@@ -2795,7 +2795,7 @@ public class DocumentView extends com.pdftron.pdf.controls.DocumentView2 {
 
             return false;
         }
-
+    };
 
     private ToolManager.AnnotationModificationListener mAnnotationModificationListener = new ToolManager.AnnotationModificationListener() {
         @Override
