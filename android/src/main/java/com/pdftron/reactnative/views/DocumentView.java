@@ -2751,6 +2751,52 @@ public class DocumentView extends com.pdftron.pdf.controls.DocumentView2 {
         }
     };
 
+
+
+    private ToolManager.BasicAnnotationListener mAnnotationBasicAnnotationListener = new ToolManager.BasicAnnotationListener() {
+
+        @Override
+        public void onAnnotationSelected(Annot annot, int pageNum)
+        {
+
+            try {
+                if (annot != null && annot.getType() == Annot.e_FreeText) {                        
+                    FreeText freeTextAnnot = new FreeText(annot);
+                    freeTextAnnot.setFontSize(30);
+                    freeTextAnnot.refreshAppearance();
+                    getPdfViewCtrl().update();
+                }
+            } catch (PDFNetException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        @Override
+        public void onAnnotationUnselected()
+        {
+
+        }
+
+        @Override
+        public boolean onInterceptAnnotationHandling(Annot annot, Bundle extra, ToolManager.ToolMode toolMode)
+        {
+
+            try {
+                if (annot != null && annot.getType() == Annot.e_FreeText) {                        
+                    FreeText freeTextAnnot = new FreeText(annot);
+                    freeTextAnnot.setFontSize(30);
+                    freeTextAnnot.refreshAppearance();
+                    getPdfViewCtrl().update();
+                }
+            } catch (PDFNetException e) {
+                e.printStackTrace();
+            }
+
+            return false;
+        }
+
+
     private ToolManager.AnnotationModificationListener mAnnotationModificationListener = new ToolManager.AnnotationModificationListener() {
         @Override
         public void onAnnotationsAdded(Map<Annot, Integer> map) {
@@ -3187,6 +3233,8 @@ public class DocumentView extends com.pdftron.pdf.controls.DocumentView2 {
         getPdfViewCtrl().addOnCanvasSizeChangeListener(mOnCanvasSizeChangeListener);
         getPdfViewCtrl().addOnLayoutChangeListener(mLayoutChangedListener);
         getPdfViewCtrl().addTextSearchListener(mTextSearchListener);
+
+        getToolManager().setBasicAnnotationListener(mAnnotationBasicAnnotationListener); // XXX
 
         getToolManager().addAnnotationModificationListener(mAnnotationModificationListener);
         getToolManager().addAnnotationsSelectionListener(mAnnotationsSelectionListener);
